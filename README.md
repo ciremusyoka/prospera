@@ -1,36 +1,149 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏦 Prospera
 
-## Getting Started
+**Safe & Simple. Invest Smart. Grow Steady.**
 
-First, run the development server:
+Prospera is a banking-like investment platform designed for stability, trust, and growth.  
+It allows users to invest using **USDT (TRC-20 on Tron network)**, track balances, and earn through referral rewards.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📌 Overview
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Focused on **stablecoin (USDT Tron)** to minimize volatility.
+- Provides **4 investment packages** tailored for different user needs.
+- Supports **crypto deposits & withdrawals** through the Heleket API.
+- Includes a **referral system** to reward community growth.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🔑 Core Features
 
-To learn more about Next.js, take a look at the following resources:
+1. **User Registration & Authentication**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   - Email verification
+   - Secure login system
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Investor Profile Management**
 
-## Deploy on Vercel
+   - View and update personal details
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Investment Packages**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   - 4 packages: Basic, Standard, Premium, Enterprise
+   - Default for new investors = Basic package
+
+4. **Crypto Payments (USDT - Tron)**
+
+   - Deposit via blockchain wallet (Heleket API)
+   - Withdraw to registered USDT wallet
+
+5. **Transaction Management**
+
+   - Deposit history
+   - Withdrawal history
+   - Balance overview
+
+6. **Referral System**
+   - Each investor has a unique referral code/link
+   - Referral bonuses credited in USDT balance
+
+---
+
+## 🏗️ System Workflow
+
+### 🔹 Onboarding
+
+1. Investor signs up → verifies email
+2. Default package = Basic
+3. Investor receives referral code
+
+### 🔹 Deposits
+
+1. Investor selects **Deposit**
+2. System generates a **unique Tron address** (via Heleket API)
+3. Investor sends USDT → system confirms via blockchain
+4. Balance updated → transaction recorded
+
+### 🔹 Investments
+
+1. Investor selects a package
+2. Funds allocated from balance
+3. System tracks investment and returns
+
+### 🔹 Withdrawals
+
+1. Investor requests withdrawal to USDT wallet
+2. Balance & approvals checked
+3. Withdrawal processed via Heleket API
+4. Transaction logged
+
+### 🔹 Referrals
+
+1. New investor registers via referral code/link
+2. Referrer earns bonus after first deposit
+3. Bonus credited in USDT balance
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js + Tailwind CSS
+- **Backend**: Next.js Server Actions (Node.js)
+- **Database**: PostgreSQL (Prisma ORM)
+- **Payments**: USDT (TRC-20) via Heleket API
+- **Auth & Security**: JWT / NextAuth, bcrypt
+- **Hosting**: Vercel (Frontend + Serverless), Railway/Neon/PlanetScale (DB)
+
+---
+
+## 🗂️ Database Schema (Core Tables)
+
+### **Investor**
+
+- `id` (PK)
+- `email` (unique)
+- `password`
+- `referralCode`
+- `referredById` (FK → Investor.id)
+
+### **InvestmentPackage**
+
+- `id` (PK)
+- `name`
+- `rate` (ROI %)
+- `duration` (in days)
+
+### **Investment**
+
+- `id` (PK)
+- `investorId` (FK → Investor.id)
+- `packageId` (FK → InvestmentPackage.id)
+- `amount`
+- `status`
+
+### **Transaction**
+
+- `id` (PK)
+- `investorId` (FK → Investor.id)
+- `type` (`deposit`, `withdraw`, `referral`)
+- `amount`
+- `status`
+
+### **ReferralReward**
+
+- `id` (PK)
+- `referrerId` (FK → Investor.id)
+- `referredInvestorId` (FK → Investor.id)
+- `amount`
+- `status`
+
+---
+
+## 🚀 Future Enhancements
+
+- Mobile app (React Native)
+- Support for additional stablecoins (USDC, BUSD)
+- AI-powered investment insights
+- Advanced analytics & reporting
+
+---
