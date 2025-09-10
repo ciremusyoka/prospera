@@ -1,5 +1,6 @@
+import Link from "next/link";
 import Footer from "./component/footer";
-import { TITLE } from "./constants";
+import { SIGN_IN_URL, TITLE } from "./constants";
 
 async function HomePage() {
 	return (
@@ -21,9 +22,12 @@ async function HomePage() {
 				<p className="mt-2 text-sm text-secondaryColor">
 					Join us and take the first step towards financial security.
 				</p>
-				<button className="mt-10 px-8 py-3 bg-gradient-to-r from-primaryColor to-secondaryColor text-lightColor font-medium rounded-lg shadow-md hover:opacity-90 transition">
-					Get Started
-				</button>
+				<div className="mt-10">
+					<Link href={SIGN_IN_URL} className="px-8 py-3 bg-gradient-to-r from-primaryColor to-secondaryColor text-lightColor font-medium rounded-lg shadow-md hover:opacity-90 transition">
+						Get Started
+					</Link>
+				</div>
+				
 			</div>
 		</main>
 		<Footer />
