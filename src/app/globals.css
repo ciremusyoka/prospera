@@ -8,6 +8,7 @@
   --dark: #1F3B3A;
   --secondary: #2F6D62;
   --light: #E0F7F4;
+  --text: #000000;
 }
 
 @theme inline {
@@ -30,5 +31,6 @@
   --color-darkColor: var(--dark);
   --color-secondaryColor: var(--secondary);
   --color-lightColor: var(--light);
+  --color-textColor: var(--text);
 }
 
