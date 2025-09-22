@@ -12,7 +12,7 @@ export const Icon = { ProfileIcon }
 export const AccountInfo = [
     {
         id: 1,
-        key: "personal-infor",
+        key: "personal-info",
         title: "Personal Info",
         text: "Provide personal details and how we can reach you",
         Icon: ProfileIcon,
