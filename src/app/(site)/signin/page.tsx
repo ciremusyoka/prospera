@@ -1,10 +1,19 @@
+"use client"
+
+import { useRouter } from "next/navigation";
 import SignForm from "../component/signForm";
+import { DASHBOARD_URL } from "@/app/constants";
+import { LoginT } from "@/app/zodObject";
 
  const SignIn = () => {
-	
+	const router = useRouter();
+	const onSubmit = (data: LoginT) => {
+		console.log(data);
+		router.push(DASHBOARD_URL);
+	};
 	return (
 		<div>
-			<SignForm isLogin={true} />
+			<SignForm isLogin={true} handleOnSubmit={onSubmit} />
 		</div>
 	);
   };
