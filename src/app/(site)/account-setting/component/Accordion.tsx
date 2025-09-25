@@ -6,9 +6,9 @@ export default function AccountEditForm() {
 
     const toggleSection = (sectionId: string) => {
         if (activeEditSection === sectionId) {
-            setActiveEditSection(null); // collapse if already open
+            setActiveEditSection(null); 
         } else {
-            setActiveEditSection(sectionId); // open this, close others
+            setActiveEditSection(sectionId); 
         }
     };
 

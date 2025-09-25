@@ -22,25 +22,6 @@ export default function Referrals() {
                     />
                     <CopyButton link={link} />
                 </div>
-
-                <div className="bg-accents py-6 rounded-md">
-                    <div className="mb-3 text-textcolor text-base font-medium flex justify-center text-center px-2">
-                        <h2>More ways to invite your friends</h2>
-                    </div>
-
-                    {/* <div className="bg-accents w-full py-5 px-8 md:px-5 flex flex-col md:flex-row md:justify-center items-center gap-3">
-                        {SocialIcons.map((item) => (
-                            <button
-                                key={item.id}
-                                className="btn btn-md bg-white text-textcolor font-normal text-base border-0 w-full md:w-auto"
-                            >
-                                <Image src={item.Icon} width={25} height={25} alt={item.alt} />
-                                {item.label}
-                            </button>
-                        ))}
-                    </div> */}
-
-                </div>
             </div>
 
 
