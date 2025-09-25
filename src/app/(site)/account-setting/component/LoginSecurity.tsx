@@ -1,44 +1,31 @@
 "use client"
-import { ChangeEvent, useState } from "react";
-// import { ChangePasswordFormErrors, ChangePasswordInterface, validateChangePassword } from "@/app/utills/validateForm";
+import { changePasswordSchema, ChangePasswordT } from "@/app/zodObject";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { EditAndCancelButton } from "./EditAndCancelButton";
 
 export default function LoginSecurity() {
     const [activeEditSection, setActiveEditSection] = useState<string | null>(null);
-    const [formData, setFormData] = useState({
-        current_password: "",
-        new_password: "",
-        confirm_password: ""
+    const {register, handleSubmit, formState: { errors } } = useForm<ChangePasswordT>({
+        resolver: zodResolver(changePasswordSchema)
     });
-
-    // Handle Changes
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        const updatedFormData = { ...formData, [name]: value };
-        setFormData(updatedFormData);
-    };
-
 
     const toggleSection = (sectionId: string) => {
         if (activeEditSection === sectionId) {
-            setActiveEditSection(null); // collapse if already open
+            setActiveEditSection(null);
         } else {
-            setActiveEditSection(sectionId); // open this, close others
+            setActiveEditSection(sectionId);
         }
     };
 
     const isEditing = (sectionId: string) => activeEditSection === sectionId;
 
-    // SUBMIT UPDATED PASSWORD
-    const updatePassword = () => {
-      // if (validateForm()) {
-      //     console.log(formData);
-      //
-      //     setActiveEditSection(null)
-      // } else {
-      //     console.log(formErrors);
-      //
-      // }
+    const onSubmit = (data: ChangePasswordT) => {
+        console.log(data);
+        setActiveEditSection(null);
     }
+
     return (
         <div>
             <div className="rounded-md bg-surface py-4 md:px-10 px-5 ">
@@ -46,13 +33,13 @@ export default function LoginSecurity() {
                 <div className="border-b border-gray-400 pb-5">
                     <div className="flex justify-between">
                         <h1 className="text-textcolor">Email address</h1>
-                        <button
-                            onClick={() => toggleSection("email")}
-                            disabled={Boolean(activeEditSection && activeEditSection !== "email")}
-                            className="text-primary disabled:opacity-50"
-                        >
-                            {isEditing("email") ? "Cancel" : "View"}
-                        </button>
+                        <EditAndCancelButton
+                            isEditing={isEditing("email")}
+                            toggleSection={toggleSection}
+                            sectionId="email"
+                            activeEditSection={activeEditSection as string}
+                            buttonText="View"
+                        />
                     </div>
                     <span className="text-textcolor text-xs mt-2">
                         {isEditing("email") ? (
@@ -64,7 +51,7 @@ export default function LoginSecurity() {
                     {isEditing("email") && (
                         <div className="my-4">
                             <div>
-                                <label className="block text-xs text-textcolor mb-1">Email</label>
+                                <label className="block text-base text-textcolor mb-1">Email</label>
                                 <input value={"frank@gmail.com"} className="border border-gray-600 py-1.5 text-textcolor pl-3 bg-accents rounded-md w-full" />
                             </div>
 
@@ -82,13 +69,13 @@ export default function LoginSecurity() {
                 <div className="border-b border-gray-400 pb-5 my-4">
                     <div className="flex justify-between">
                         <h1 className="text-textcolor">Password</h1>
-                        <button
-                            onClick={() => toggleSection("password")}
-                            disabled={Boolean(activeEditSection && activeEditSection !== "password")}
-                            className="text-primary disabled:opacity-50"
-                        >
-                            {isEditing("password") ? "Cancel" : "Change"}
-                        </button>
+                        <EditAndCancelButton
+                            isEditing={isEditing("password")}
+                            toggleSection={toggleSection}
+                            sectionId="password"
+                            activeEditSection={activeEditSection as string}
+                            buttonText="Change"
+                        />
                     </div>
                     <p className="text-textcolor text-sm mt-2">
                         {isEditing("password") ? (
@@ -98,45 +85,38 @@ export default function LoginSecurity() {
                     </p>
 
                     {isEditing("password") && (
-                        <div className="mt-4">
+                        <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
                             <div className="mb-3">
-                                <label htmlFor="current_password" className="block text-xs text-textcolor mb-2">Current Password </label>
+                                <label htmlFor="currentPassword" className="block text-xs text-textcolor mb-2">Current Password </label>
                                 <input
-                                    type="password"
-                                    name="current_password"
-                                    value={formData.current_password}
-                                    onChange={handleChange}
-                                    className="border border-gray-600 py-1.5 text-textcolor pl-3 rounded-md w-full"
+                                    className="border border-gray-600 py-2 text-textcolor pl-3 rounded-md w-full focus:outline-none focus:ring-primaryColor focus:border-primaryColor"
+                                    {...register("currentPassword")}
                                 />
+                                {errors.currentPassword && <p className="text-red-500 text-sm">{errors.currentPassword.message}</p>}
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="new_password" className="block text-xs text-textcolor mb-2">New Password </label>
+                                <label htmlFor="newPassword" className="block text-xs text-textcolor mb-2">New Password </label>
                                 <input
-                                    type="password"
-                                    name="new_password"
-                                    value={formData.new_password}
-                                    onChange={handleChange}
-                                    className="border border-gray-600 py-1.5 text-textcolor pl-3 rounded-md w-full"
+                                    className="border border-gray-600 py-2 text-textcolor pl-3 rounded-md w-full focus:outline-none focus:ring-primaryColor focus:border-primaryColor"
+                                    {...register("newPassword")}
                                 />
+                                {errors.newPassword && <p className="text-red-500 text-sm">{errors.newPassword.message}</p>}
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="confirm_password" className="block text-xs text-textcolor mb-2">Confirm Password </label>
+                                <label htmlFor="confirmNewPassword" className="block text-xs text-textcolor mb-2">Confirm Password </label>
                                 <input
-                                    name="confirm_password"
-                                    value={formData.confirm_password}
-                                    onChange={handleChange}
-                                    type="password"
-                                    className="border border-gray-600 py-1.5 text-textcolor pl-3 rounded-md w-full"
+                                    className="border border-gray-600 py-2 text-textcolor pl-3 rounded-md w-full focus:outline-none focus:ring-primaryColor focus:border-primaryColor"
+                                    {...register("confirmNewPassword")}
                                 />
-
+                                {errors.confirmNewPassword && <p className="text-red-500 text-sm">{errors.confirmNewPassword.message}</p>}
                             </div>
 
                             <div className="mt-4">
-                                <button onClick={updatePassword} className="btn btn-md bg-primary text-white border-none px-6">
+                                <button type="submit" className="px-8 py-3 bg-gradient-to-r from-primaryColor to-secondaryColor text-lightColor font-medium rounded-lg shadow-md hover:opacity-90 transition">
                                     Update Password
                                 </button>
                             </div>
-                        </div>
+                        </form>
                     )}
                 </div>
             </div>

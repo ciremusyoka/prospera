@@ -1,8 +1,15 @@
 "use client"
+import { updateUserSchema, UpdateUserT } from "@/app/zodObject";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { EditAndCancelButton } from "./EditAndCancelButton";
 
 export default function AccountEditForm() {
     const [activeEditSection, setActiveEditSection] = useState<string | null>(null);
+    const { register, handleSubmit, formState: { errors } } = useForm<UpdateUserT>({
+        resolver: zodResolver(updateUserSchema)
+    });
 
     const toggleSection = (sectionId: string) => {
         if (activeEditSection === sectionId) {
@@ -13,6 +20,11 @@ export default function AccountEditForm() {
     };
 
     const isEditing = (sectionId: string) => activeEditSection === sectionId;
+
+    const onSubmit = (data: UpdateUserT) => {
+        console.log(data);
+        setActiveEditSection(null);
+    }
 
     return (
         <div className="rounded-md bg-surface py-4 md:px-10 px-5">
@@ -34,21 +46,27 @@ export default function AccountEditForm() {
                 </span>
 
                 {isEditing("name") && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                         <div>
-                            <label className="block text-xs text-textcolor mb-1">First Name</label>
-                            <input className="border border-gray-600 py-1.5 text-textcolor pl-3 rounded-md w-full" />
+                            <label className="block text-base text-textcolor mb-1">First Name</label>
+                            <input className="border border-gray-600 py-2 text-textcolor pl-3 rounded-md w-full focus:outline-none focus:ring-primaryColor focus:border-primaryColor"
+                             {...register("firstName")}
+                            />
+                            {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName.message}</p>}
                         </div>
                         <div>
-                            <label className="block text-xs text-textcolor mb-1">Last Name</label>
-                            <input className="border border-gray-600 py-1.5 text-textcolor pl-3 rounded-md w-full" />
+                            <label className="block text-base text-textcolor mb-1">Last Name</label>
+                            <input className="border border-gray-600 py-2 text-textcolor pl-3 rounded-md w-full focus:outline-none focus:ring-primaryColor focus:border-primaryColor"
+                             {...register("lastName")}
+                            />
+                            {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName.message}</p>}
                         </div>
                         <div className="col-span-1 md:col-span-2 mt-2">
-                            <button onClick={() => setActiveEditSection(null)} className="btn btn-md bg-primary text-white border-none">
+                            <button type="submit" className="px-8 py-3 bg-gradient-to-r from-primaryColor to-secondaryColor text-lightColor font-medium rounded-lg shadow-md hover:opacity-90 transition">
                                 Save
                             </button>
                         </div>
-                    </div>
+                    </form>
                 )}
             </div>
 
@@ -74,7 +92,7 @@ export default function AccountEditForm() {
                         <label className="block text-xs text-textcolor mb-2">Phone Number</label>
                         <input className="border border-gray-600 py-1.5 text-textcolor pl-3 rounded-md w-full" />
                         <div className="mt-4">
-                            <button onClick={() => setActiveEditSection(null)} className="btn btn-md bg-primary text-white border-none">
+                            <button onClick={() => setActiveEditSection(null)} className="px-8 py-3 bg-gradient-to-r from-primaryColor to-secondaryColor text-lightColor font-medium rounded-lg shadow-md hover:opacity-90 transition">
                                 Save
                             </button>
                         </div>
@@ -114,7 +132,7 @@ export default function AccountEditForm() {
                             <input className="border border-gray-600 py-1.5 text-textcolor pl-3 rounded-md w-full" />
                         </div>
                         <div className="col-span-1 md:col-span-2 mt-2">
-                            <button onClick={() => setActiveEditSection(null)} className="btn btn-md bg-primary text-white border-none">
+                            <button onClick={() => setActiveEditSection(null)} className="px-8 py-3 bg-gradient-to-r from-primaryColor to-secondaryColor text-lightColor font-medium rounded-lg shadow-md hover:opacity-90 transition">
                                 Save
                             </button>
                         </div>
@@ -125,19 +143,3 @@ export default function AccountEditForm() {
     );
 }
 
-type ButtonPropsType = {
-    isEditing: boolean;
-    activeEditSection: string;
-    toggleSection: (sectionId: string) => void;
-    sectionId: string;
-};
-
-const EditAndCancelButton = ({ isEditing, toggleSection, sectionId, activeEditSection }: ButtonPropsType) => (
-    <button
-        onClick={() => toggleSection(sectionId)}
-        disabled={Boolean(activeEditSection && activeEditSection !== sectionId)}
-        className="text-primary disabled:opacity-50"
-    >
-        {isEditing ? "Cancel" : "Edit"}
-    </button>
-);

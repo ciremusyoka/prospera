@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ACCOUNT_SETTINGS_URL, DASHBOARD_URL, LOGOUT_URL, TITLE } from "@/app/constants";
+import { ACCOUNT_SETTINGS_URL, DASHBOARD_URL, HOME_URL, TITLE } from "@/app/constants";
 
 
 export default function DashBoardNavBar({ isAccountSettings = false }: { isAccountSettings?: boolean }) {
@@ -42,7 +42,7 @@ const DropDown = () => {
                 </div>
                 <div className="ml-3 flex flex-col pt-3">
                     <Link href={ACCOUNT_SETTINGS_URL} className="text-sm text-gray-600 mb-2"> Account setting</Link>
-                    <Link href={LOGOUT_URL} className="text-sm text-gray-600"> Log out</Link>
+                    <Link href={HOME_URL} className="text-sm text-gray-600"> Log out</Link>
                 </div>
             </ul>
         </div>

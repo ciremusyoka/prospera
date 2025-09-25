@@ -1,6 +1,6 @@
 
 "use client"
-import { Copy, CircleCheck } from 'lucide-react'; // Assuming you're using Lucide icons
+import { Copy, CircleCheck } from 'lucide-react';
 import { useState } from 'react';
 
 export default function CopyButton({ link }: { link: string }) {
@@ -20,7 +20,7 @@ export default function CopyButton({ link }: { link: string }) {
     return (
         <button
             onClick={handleCopy}
-            className={`${copied ? "bg-green-800" : "bg-secondary"} " flex items-center justify-center gap-2 py-1.5 px-3 rounded-md text-sm"`}
+            className={`${copied ? "bg-green-400" : "bg-primaryColor"} " flex items-center justify-center gap-2 py-1.5 px-3 rounded-md text-sm text-textColor"`}
         >
             {copied
                 ? <> <CircleCheck className="h-5 w-5" /> Copied!</>

@@ -10,8 +10,8 @@ export default function Referrals() {
             <div className=" mb-8 rounded-md bg-surface py-4 px-4 sm:px-6 md:px-10 space-y-6">
                 <h1 className="text-textcolor font-medium text-base sm:text-lg">Share your referral link</h1>
 
-                <p className="text-xs sm:text-sm text-gray-500">
-                    Invite your friends to join {TITLE} for free, and for each one who signs up.
+                <p className="text-xs sm:text-sm text-textcolor">
+                    Invite your friends to join {TITLE} for free, and for each one who signs up, you will receive a reward.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">

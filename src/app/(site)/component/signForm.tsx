@@ -7,16 +7,18 @@ import { SIGN_IN_URL, SIGN_UP_URL } from "@/app/constants";
 type formType = SignupT | LoginT;
 type SignFormProps = {
     isLogin: boolean;
+	handleOnSubmit: (data: formType) => void;
 }
 
-const SignForm = ({ isLogin }: SignFormProps) => {
+const SignForm = ({ isLogin, handleOnSubmit }: SignFormProps) => {
     const schema = isLogin ? loginSchema : signupSchema;
 	const { register, handleSubmit, formState: { errors } } = useForm<formType>({
 		resolver: zodResolver(schema)
 	});
 
 	const onSubmit: SubmitHandler<formType> = (data) => {
-		console.log(data);        
+		console.log(data);
+		handleOnSubmit(data);
 	};
 
 	return (
