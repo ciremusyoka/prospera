@@ -2,7 +2,7 @@
 import { SignupT } from "@/app/zodObject";
 import SignForm from "../component/signForm";
 import { useRouter } from "next/navigation";
-import { SIGN_IN_URL } from "@/app/constants";
+import { SIGN_IN_URL } from "@/constants/constants.path";
 
  const Signup = () => {
 	const router = useRouter();

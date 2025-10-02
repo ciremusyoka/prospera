@@ -1,5 +1,5 @@
 
-import { TITLE } from "@/app/constants";
+import { TITLE } from "@/constants/constants.path";
 import CopyButton from "../../component/CopyButton";
 
 export default function Referrals() {

@@ -2,7 +2,7 @@
 import { useForm,SubmitHandler } from "react-hook-form";
 import { LoginT,loginSchema,signupSchema,SignupT } from "@/app/zodObject";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SIGN_IN_URL, SIGN_UP_URL } from "@/app/constants";
+import { SIGN_IN_URL, SIGN_UP_URL } from "@/constants/constants.path";
 
 type formType = SignupT | LoginT;
 type SignFormProps = {

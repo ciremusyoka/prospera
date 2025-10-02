@@ -1,4 +1,4 @@
-import { TITLE } from "../constants";
+import { TITLE } from "@constant/constants.path";
 
 export default function Footer() {
   return (

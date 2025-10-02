@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ACCOUNT_SETTINGS_URL, DASHBOARD_URL, HOME_URL, TITLE } from "@/app/constants";
+import { ACCOUNT_SETTINGS_URL, DASHBOARD_URL, HOME_URL, TITLE } from "@/constants/constants.path";
 
 
 export default function DashBoardNavBar({ isAccountSettings = false }: { isAccountSettings?: boolean }) {
@@ -7,7 +7,7 @@ export default function DashBoardNavBar({ isAccountSettings = false }: { isAccou
         <>
             <div className="navbar bg-gradient-to-r from-secondaryColor via-primaryColor to-secondaryColor shadow-md border-b border-darkColor px-5">
                 <div className="flex-1">
-                    <h1 className=" pl-3 font-semibold text-xl text-black">{TITLE}</h1>
+                    <h1 className=" pl-3 font-semibold text-xl text-lightColor">{TITLE}</h1>
                 </div>
                 {isAccountSettings
                     ? (

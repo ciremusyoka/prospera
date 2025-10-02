@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import SignForm from "../component/signForm";
-import { DASHBOARD_URL } from "@/app/constants";
+import { DASHBOARD_URL } from "@/constants/constants.path";
 import { LoginT } from "@/app/zodObject";
 
  const SignIn = () => {

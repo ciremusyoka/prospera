@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Footer from "./component/footer";
-import { SIGN_IN_URL, TITLE } from "./constants";
+import Footer from "@component/footer";
+import { SIGN_IN_URL, TITLE } from "@constant/constants.path";
 
 async function HomePage() {
 	return (
